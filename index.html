@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重装上阵 · 玩家社区</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* 顶部导航 */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 8%;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #38bdf8;
+        }
+
+        /* 主视觉区 */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.2s;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.4s;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.6s;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #38bdf8;
+            color: #0f172a;
+        }
+
+        .btn-primary:hover {
+            background: #7dd3fc;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.3);
+        }
+
+        .btn-secondary {
+            border: 1px solid #38bdf8;
+            color: #38bdf8;
+            background: transparent;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(56, 189, 248, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* 功能卡片区 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 4rem 8%;
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .card:nth-child(1) { animation: fadeUp 1s ease forwards 0.8s; }
+        .card:nth-child(2) { animation: fadeUp 1s ease forwards 1s; }
+        .card:nth-child(3) { animation: fadeUp 1s ease forwards 1.2s; }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: #38bdf8;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .card h3 {
+            margin-bottom: 0.8rem;
+            color: #e2e8f0;
+        }
+
+        .card p {
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        /* 底部 */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* 动画 */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="logo">重装上阵社区</div>
+        <div class="nav-links">
+            <a href="#home">首页</a>
+            <a href="#features">社区</a>
+            <a href="#about">关于我们</a>
+        </div>
+    </nav>
+
+    <!-- 主视觉区 -->
+    <section class="hero" id="home">
+        <h1>欢迎来到重装上阵玩家社区</h1>
+        <p>在这里，我们一起分享机甲创意、组队开黑、交流战术，打造属于玩家自己的交流天地。</p>
+        <div class="btn-group">
+            <a href="#" class="btn btn-primary">加入社区</a>
+            <a href="#" class="btn btn-secondary">了解更多</a>
+        </div>
+    </section>
+
+    <!-- 功能卡片区 -->
+    <section class="features" id="features">
+        <div class="card">
+            <h3>机甲分享</h3>
+            <p>上传你的创意机甲蓝图，和大家一起讨论设计思路，让你的作品被更多人看见。</p>
+        </div>
+        <div class="card">
+            <h3>组队开黑</h3>
+            <p>寻找志同道合的队友，一起打排位、做活动，告别单排的孤独。</p>
+        </div>
+        <div class="card">
+            <h3>战术交流</h3>
+            <p>分享你的对战技巧、地图理解，一起进步，成为更强的重装玩家。</p>
+        </div>
+    </section>
+
+    <!-- 底部 -->
+    <footer id="about">
+        <p>© 2025 重装上阵玩家社区 · 热爱机甲，永不落幕</p>
+    </footer>
+</body>
+</html>

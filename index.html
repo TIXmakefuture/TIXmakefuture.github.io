@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>重装上阵 · 玩家社区</title>
+    <title>重装上阵 · 玩家社区（全液态玻璃风格）</title>
     <style>
         * {
             margin: 0;
@@ -12,42 +12,60 @@
             font-family: "Segoe UI", sans-serif;
         }
 
+        /* 全局液态玻璃基础 + 动态渐变背景 */
         body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background: linear-gradient(135deg, #0a101f 0%, #16213e 50%, #0f172a 100%);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
             color: #e2e8f0;
             min-height: 100vh;
             overflow-x: hidden;
+            padding: 1rem;
         }
 
-        /* 顶部导航 */
+        /* 核心液态玻璃样式：全元素统一质感 */
+        .glass {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            box-shadow: 0 10px 36px rgba(0, 0, 0, 0.25);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* 导航栏 */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 8%;
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(10px);
             position: sticky;
-            top: 0;
+            top: 1rem;
             z-index: 999;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 2rem;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: bold;
             color: #38bdf8;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
         }
 
         .nav-links a {
             color: #cbd5e1;
             text-decoration: none;
-            margin-left: 2rem;
+            margin-left: 2.2rem;
+            font-size: 1.05rem;
             transition: all 0.3s ease;
+            padding: 0.3rem 0;
+            border-bottom: 2px solid transparent;
         }
 
         .nav-links a:hover {
             color: #38bdf8;
+            border-bottom: 2px solid #38bdf8;
         }
 
         /* 主视觉区 */
@@ -56,78 +74,83 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 80vh;
+            min-height: 70vh;
             text-align: center;
-            padding: 2rem;
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
+            font-size: 3.8rem;
+            margin-bottom: 1.2rem;
             opacity: 0;
             animation: fadeUp 1s ease forwards 0.2s;
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #94a3b8;
-            max-width: 600px;
-            margin-bottom: 2.5rem;
+            max-width: 650px;
+            margin-bottom: 3rem;
             opacity: 0;
             animation: fadeUp 1s ease forwards 0.4s;
+            line-height: 1.7;
         }
 
         .btn-group {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             opacity: 0;
             animation: fadeUp 1s ease forwards 0.6s;
         }
 
+        /* 按钮液态玻璃化 */
         .btn {
-            padding: 0.8rem 2rem;
-            border-radius: 8px;
+            padding: 1rem 2.2rem;
+            border-radius: 12px;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 1.05rem;
             transition: all 0.3s ease;
+            border: 1px solid transparent;
         }
 
         .btn-primary {
-            background: #38bdf8;
+            background: rgba(56, 189, 248, 0.9);
             color: #0f172a;
+            box-shadow: 0 5px 20px rgba(56, 189, 248, 0.3);
         }
 
         .btn-primary:hover {
-            background: #7dd3fc;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.3);
+            background: rgba(56, 189, 248, 1);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .btn-secondary {
-            border: 1px solid #38bdf8;
+            background: rgba(255, 255, 255, 0.08);
             color: #38bdf8;
-            background: transparent;
+            border-color: rgba(56, 189, 248, 0.5);
         }
 
         .btn-secondary:hover {
-            background: rgba(56, 189, 248, 0.1);
-            transform: translateY(-3px);
+            background: rgba(56, 189, 248, 0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.2);
         }
 
         /* 功能卡片区 */
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            padding: 4rem 8%;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            padding: 0 8% 4rem;
         }
 
         .card {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 2rem;
-            transition: all 0.3s ease;
+            padding: 2.5rem;
             opacity: 0;
             transform: translateY(30px);
         }
@@ -137,45 +160,66 @@
         .card:nth-child(3) { animation: fadeUp 1s ease forwards 1.2s; }
 
         .card:hover {
-            transform: translateY(-8px);
-            border-color: #38bdf8;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: translateY(-10px);
+            border-color: rgba(56, 189, 248, 0.6);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .card h3 {
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
             color: #e2e8f0;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .card h3::before {
+            content: "✦";
+            color: #38bdf8;
+            font-size: 1.8rem;
         }
 
         .card p {
             color: #94a3b8;
-            line-height: 1.6;
+            line-height: 1.7;
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
         }
 
         /* 底部 */
         footer {
             text-align: center;
-            padding: 2rem;
+            padding: 2.5rem;
             color: #64748b;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            margin: 0 8% 2rem;
         }
 
-        /* 动画 */
+        /* 动画效果 */
         @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            .nav-links a { margin-left: 1.5rem; font-size: 1rem; }
+            .btn-group { flex-direction: column; gap: 1rem; }
+            .features { padding: 0 5% 3rem; }
         }
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
-    <nav>
+    <!-- 导航栏（液态玻璃） -->
+    <nav class="glass">
         <div class="logo">重装上阵社区</div>
         <div class="nav-links">
             <a href="#home">首页</a>
@@ -184,35 +228,38 @@
         </div>
     </nav>
 
-    <!-- 主视觉区 -->
-    <section class="hero" id="home">
+    <!-- 主视觉区（液态玻璃） -->
+    <section class="hero glass" id="home">
         <h1>欢迎来到重装上阵玩家社区</h1>
         <p>在这里，我们一起分享机甲创意、组队开黑、交流战术，打造属于玩家自己的交流天地。</p>
         <div class="btn-group">
-            <a href="#" class="btn btn-primary">加入社区</a>
-            <a href="#" class="btn btn-secondary">了解更多</a>
+            <a href="javascript:void(0);" onclick="alert('抖音群号：664859491263，快去抖音搜索加入吧！')" class="btn btn-primary">加入抖音群聊</a>
+            <a href="#features" class="btn btn-secondary">了解更多</a>
         </div>
     </section>
 
-    <!-- 功能卡片区 -->
+    <!-- 功能卡片区（液态玻璃） -->
     <section class="features" id="features">
-        <div class="card">
+        <div class="card glass">
             <h3>机甲分享</h3>
             <p>上传你的创意机甲蓝图，和大家一起讨论设计思路，让你的作品被更多人看见。</p>
+            <a href="javascript:void(0);" onclick="alert('机甲分享功能请前往抖音搜索664859491263加入群聊！')" class="btn btn-secondary">立即分享</a>
         </div>
-        <div class="card">
+        <div class="card glass">
             <h3>组队开黑</h3>
             <p>寻找志同道合的队友，一起打排位、做活动，告别单排的孤独。</p>
+            <a href="javascript:void(0);" onclick="alert('组队开黑功能请前往抖音搜索664859491263加入群聊！')" class="btn btn-secondary">寻找队友</a>
         </div>
-        <div class="card">
+        <div class="card glass">
             <h3>战术交流</h3>
             <p>分享你的对战技巧、地图理解，一起进步，成为更强的重装玩家。</p>
+            <a href="javascript:void(0);" onclick="alert('战术交流功能正在开发中，敬请期待！')" class="btn btn-secondary">交流战术</a>
         </div>
     </section>
 
-    <!-- 底部 -->
-    <footer id="about">
-        <p>© 2025 重装上阵玩家社区 · 热爱机甲，永不落幕</p>
+    <!-- 底部（液态玻璃） -->
+    <footer id="about" class="glass">
+        <p>© 2026 重装上阵玩家社区 抖音矽忈 · 热爱机甲，永不落幕</p>
     </footer>
 </body>
 </html>

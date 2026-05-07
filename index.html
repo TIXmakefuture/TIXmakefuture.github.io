@@ -136,7 +136,7 @@
         }
 
         .btn-secondary:hover {
-            background: rgba56, 189, 248, 0.15;
+            background: rgba(56, 189, 248, 0.15);
             transform: translateY(-4px);
             box-shadow: 0 8px 25px rgba(56, 189, 248, 0.2);
         }
@@ -175,6 +175,26 @@
         }
         .error-text {
             color: #f87171;
+        }
+
+        /* 在线人数卡片 */
+        .online-box {
+            margin: 0 8% 3rem;
+            padding: 2rem;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease forwards 1.3s;
+        }
+        .online-box h3 {
+            color: #94a3b8;
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+        .online-num {
+            font-size: 2.5rem;
+            color: #38bdf8;
+            font-weight: bold;
         }
 
         /* 功能卡片区 */
@@ -288,6 +308,8 @@
             .features { padding: 0 5% 3rem; }
             .update-notice { padding: 1.5rem; margin: 0 5% 3rem; }
             .unlock-wrap { padding: 1.5rem; }
+            .online-box { padding: 1.5rem; margin: 0 5% 2rem; }
+            .online-num { font-size: 2rem; }
         }
     </style>
 </head>
@@ -320,6 +342,12 @@
         </div>
     </section>
 
+    <!-- 真实在线人数卡片（GitHub 访客统计） -->
+    <section class="online-box glass">
+        <h3>社区实时访问人数</h3>
+        <div class="online-num" id="visitorCount">加载中...</div>
+    </section>
+
     <!-- 功能卡片区（液态玻璃） -->
     <section class="features" id="features">
         <div class="card glass">
@@ -339,16 +367,16 @@
         </div>
     </section>
 
-    <!-- 版本更新公告模块 新增 -->
+    <!-- 版本更新公告模块 -->
     <section class="update-notice glass" id="update">
         <h3>版本更新公告</h3>
         <div class="update-item">
-            <div class="update-time">2026.05.07 · V1.2 更新</div>
-            <p>新增卡密解锁专属内容功能，优化页面动画，完善版本更新公告板块。</p>
+            <div class="update-time">2026.05.07 · V1.3 更新</div>
+            <p>新增 GitHub 真实实时在线访问人数统计，液态玻璃卡片样式，部署即可自动统计访客。</p>
         </div>
         <div class="update-item">
-            <div class="update-time">2026.05.07 · V1.1 更新</div>
-            <p>新增版本更新公告板块，优化页面动画细节，适配手机端浏览体验。</p>
+            <div class="update-time">2026.05.07 · V1.2 更新</div>
+            <p>新增卡密解锁专属内容功能，优化页面动画，完善版本更新公告板块。</p>
         </div>
         <div class="update-item">
             <div class="update-time">2026.05.01 · V1.0 正式上线</div>
@@ -498,15 +526,13 @@
 </div>
 
 <script>
-// 卡密配置
+// ========== 卡密功能 ==========
 const rightCardPwd = "g87wlkhj1665";
-// 解锁后显示的专属内容，可自行修改
 const latestContent = `✅ 卡密验证成功！已解锁最新版专属内容<br><br>
-🔹 网站已更新至 V1.2 版本<br>
-🔹 新增卡密解锁功能、版本更新公告<br>
+🔹 网站已更新至 V1.3 版本<br>
+🔹 新增真实在线人数统计、版本更新公告<br>
 🔹 后续内部资源、福利都将在此处开放`;
 
-// 卡密校验函数
 function checkCardPwd(){
     let val = document.getElementById("cardPwd").value.trim();
     let resBox = document.getElementById("unlockRes");
@@ -521,12 +547,25 @@ function checkCardPwd(){
     }
 }
 
+// ========== GitHub 真实访客人数统计 已帮你填好 ==========
+const githubUser = "TIXmakefuture";
+const githubRepo = "TIXmakefuture.github.io";
+
+fetch(`https://api.countapi.xyz/hit/${githubUser}/${githubRepo}`)
+.then(res => res.json())
+.then(data => {
+    document.getElementById("visitorCount").innerText = data.value + " 人";
+})
+.catch(() => {
+    document.getElementById("visitorCount").innerText = "统计异常";
+});
+
+// ========== AI 助手功能 ==========
 function toggleChat(){
     const box = document.getElementById('chatBox');
     box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
 }
 
-// 重装上阵专属问答知识库
 function getAIReply(text){
     let kw = text.toLowerCase();
     if(kw.includes('机甲') || kw.includes('蓝图')){
@@ -544,7 +583,6 @@ function getAIReply(text){
     if(kw.includes('你好') || kw.includes('哈喽')){
         return "你好呀！我是重装上阵AI助手，可以为你解答机甲、组队、玩法、社区相关问题~";
     }
-    // 默认通用回复
     return "我暂时还没学会这个问题，你可以问我机甲分享、组队开黑、战术玩法、社区加入相关问题哦！";
 }
 
@@ -554,11 +592,9 @@ function sendMsg(){
     const text = input.value.trim();
     if(!text) return;
 
-    // 用户消息
     content.innerHTML += `<div class="msg-user"><span>${text}</span></div>`;
     input.value = '';
 
-    // AI回复
     let reply = getAIReply(text);
     setTimeout(()=>{
         content.innerHTML += `<div class="msg-ai"><span>${reply}</span></div>`;
